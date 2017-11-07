@@ -1,0 +1,482 @@
+body,ul,li,a,article,section,footer,header,main,div,form,figure,input,dl,dt,dd,button,input,a,h1,h2,h3,h4,h5,p{
+	margin: 0;
+	padding: 0;
+	box-sizing:border-box;
+	font-size: 12px;
+}
+ul{
+	list-style:none;
+}
+a{
+	text-decoration:none;
+	color:#000;
+}
+.wrap{
+	width:1280px;
+	margin:0 auto;
+}
+header::before,header::after{
+	content:'';
+	display:table;
+}
+header::after{
+	clear:bloth;
+}
+header{
+	height:56px;
+	line-height:50px;
+	background:url(img/task1-7-1.jpg) no-repeat ;
+}
+header span{
+	font-size:20px;
+	margin-left:100px;
+}
+header .hdR{
+	width:576px;
+	float:right;
+}
+header li a{
+	width:70px;
+	font-size:16px;
+	float:left;
+	margin-right:25px;
+	text-align:center;
+}
+header a:visited{
+	color:#000;
+}
+header a:hover{
+	border-bottom:5px solid red;
+	color:red;
+}
+
+main #home{
+	background:url(img/task1-7-3.jpg) no-repeat;
+	height:940px;
+}
+#home .ho-show{
+	width:692px;
+	height:694px;	
+	color:#fff;	
+	padding-top:229px;
+	padding-left:116px;
+} 
+#home .ho-show h3{ 
+	line-height:50px;
+	font-size:50px;
+}
+#home .ho-show p{
+	margin-top:25px;
+	font-size:20px;
+	line-height:32px;
+}
+#home .ho-show a{
+	margin-top:62px;
+	display:inline-block;
+	font-size:28px;
+	background:#e74f4d;
+	padding:18px 100px;
+	color:#fff;
+}
+#home .ho-point{
+	height:250px;
+	background:#fff;
+	text-align:center;
+}
+#home .ho-point div{
+	float:left;
+	width:320px;
+	height:250px;
+	padding:42px 0 66px;
+}
+#home .ho-point p{
+	height:50px;
+	margin-top:43px;
+	font-size:14px;
+	padding:0 86px 0 93px;
+	border-right:2px solid #dedede;
+}
+#home .ho-point .last-p{
+	border-right:none;
+}
+
+#acti{
+	height:1305px;
+	background:
+}
+#acti .acti-pos{
+	background:#edecec;
+	height:360px;
+	padding:90px 210px 0;
+	text-align:center;
+}
+#acti .acti-pos p{
+	line-height:150px;
+	font-size:48px;
+	color:#a1a1a1;
+}
+#acti .acti-search{
+	padding:43px 0 0 0;
+	text-align:center;
+	height:340px;
+	background:url(img/task1-7-4.jpg) no-repeat;
+}
+#acti .acti-search .title1{
+	font-size:20px;
+	line-height:42px;
+	color:#fff;
+}
+#acti .acti-search .title2{
+	font-size:14px;
+	line-height:54px;
+	color:#fff;
+}
+#acti .acti-search form{
+	margin-top:32px;
+	
+}
+#acti .acti-search hr{
+	width:30px;
+	height:4px;
+	border:none;
+	background:#d9d1cc;
+}
+#acti .acti-search select,button{
+	width:236px;
+	height:36px;
+	color:#dfdfdf;
+}
+#acti .acti-search button{
+	width:236px;
+	height:36px;
+	border:none;
+	background:#be4e48;
+}
+#acti .acti-show{
+	background:#f7f7f7;
+	height:605px;
+	padding:102px 88px 111px 147px; 
+}
+#acti .acti-show .acti-mess{
+	width:220px;
+	display:inline-block;
+	margin-right:36px;
+}
+#acti .acti-show .actiImg{
+	width:220px;
+	height:336px;
+	background:#fff;
+	border:1px solid #dedede;
+	box-shadow:1px 1px 1px #e9e9e8;
+	padding:11px 8px 13px 8px; 
+}
+#acti .actiText{
+	padding:3px 0 1px;
+	text-align:center;
+}
+#acti .acti-show .acti-mess p {
+	font-size:20px;
+	line-height:40px;
+}
+#acti .acti-show .acti-mess span{
+	font-size:12px;
+}
+
+#project .inner>div{
+	float:left;
+	width:33.333%;
+}
+#project .inner::before,#project .inner::after{
+	display:table;
+	content:"";
+}/* 不是填在浮动元素上，要添加在浮动元素的包裹元素上 */
+#project .inner::after{
+	clear:both;
+}
+#project div.proTL{
+	width:66.66%;
+	height:567px;
+	background:url(img/task1-7-7.jpg) no-repeat;
+	color:#fff;
+	padding-top:126px;
+	text-align:center;
+}
+#project .proTL .proTL-tit1{
+	font-size:48px;
+	line-height:60px;
+}
+#project .proTL .proTL-tit2{
+	font-size:120px;
+	line-height:132px;
+}
+#project .proTL span{
+	font-size:20px;
+	line-height:44px;
+}
+#project .proTR::before{
+	content:"";
+	width:0;
+	height:0;
+	border-top:30px solid transparent;
+	border-right:30px solid #fff;
+	border-bottom:30px solid transparent;
+	position:absolute;
+	top:50%;
+	left:-30px;
+	transform:translateY(-50%);
+}
+#project .proTR{
+	position:relative;
+	height:567px;
+	padding-top:144px;
+	padding-left:70px;
+	padding-right:45px;
+	text-align:center;
+}
+#project .proTR div{
+	font-size:20px;
+	font-weight:bold;
+	line-height:64px;
+}
+#project .proTR div span{
+	color:red;
+}
+#project .proTR p{
+	font-size:12px;
+	line-height:30px;
+	height:120px;
+	overflow:hidden;
+}
+#project .proTR a{
+	width:103px;
+	line-height:31px;
+	display:block;
+	color:red;
+	text-align:center;
+	margin-top:42px;
+	margin-left:90px;
+	margin-bottom:24px;
+	border:1px solid red;
+}
+#project .proTR li{
+	width:10px;
+	height:10px;
+	border-radius:10px;
+	background:orange;
+	display:inline-block;
+	margin-right:14px;
+}
+#project .proB{
+	height:522px;
+	text-align:center;
+	padding-top:167px;
+}
+#project .proBL{
+	color:#fff;
+	background:#e74f4d;
+}
+#project .proBM{
+	background:#fff;
+}
+#project .proB-text{
+	font-size:22px;
+	line-height:30px;
+}
+
+#project .proB hr{
+	width:32px;
+	height:2px;
+	margin-bottom:25px;
+	margin-top:22px;
+	border:none;
+}
+#project .proBL-hr{
+	background: #fff;
+}
+#project .proBM-hr{
+	background:#e74f4d;
+}
+#project .proB a{
+	width:170px;
+	height:44px;
+	line-height:44px;
+	display:block;
+	font-size:20px;
+	margin-left:127px;
+}
+#project .proBL-a{
+	border:1px solid #fff;
+}
+#project .proBM-a{
+	border:1px solid #e74f4d;
+	color:#e74f4d;
+}
+#project .proBR{
+	position:relative;
+	height:522px;
+	background:url(img/task1-7-8.jpg);
+	
+}
+#project .proBR::before{
+	content:"";
+	width:0;
+	height:0;
+	border-top:30px solid transparent;
+	border-left:30px solid #fff;
+	border-bottom:30px solid transparent;
+	position:absolute;
+	top:50%;
+	left:0;
+	transform:translateY(-50%);
+}
+#volunter{
+	height:747px;
+	padding-top:117px;
+}
+#volunter .volun-tit{
+	text-align:center;
+	margin-bottom:102px;
+}
+#volunter .volunT p{
+	font-size:20px;
+	
+}
+#volunter .volunT hr{
+	width:31px;
+	height:3px;
+	border:none;
+	background:#e74f4d;
+	margin-top:8px;
+	margin-bottom:10px;
+}
+#volunter .volunT span{
+	display:inline-block;
+	font-size:12px;
+	line-height:18px;
+	width:422px;
+}
+#volunter .volunB .volun-nav{
+	width:430px;
+	height:302px;
+	padding-top:82p;
+	padding-left:135px;
+	float:left;
+}
+#volunter .volun-nav .nav-list{
+	position:relative;
+	float:left;
+	width:259px;
+}
+#volunter .volun-nav .nav-list p{
+	font-size:16px;
+	line-height:58px;
+}
+#volunter .volun-nav .nav-list span{
+	font-size:12px;
+	line-height:20px;
+}
+#volunter .volun-nav .nav-list .nav-more{
+	position:relative;
+	float:right;
+}
+#volunter .volun-nav .nav-list .nav-more::before{
+	content:"";
+	width:0;
+	height:0;
+	border-top:6px solid #000;
+	border-right:6px solid transparent;
+	border-left:6px solid transparent;
+	position:absolute;
+	top:6px;
+	left:-12px;
+}
+#volunter .volun-nav .nav-list .nav-more::after{
+	content:"";
+	width:0;
+	height:0;
+	border-top:5px solid #fff;
+	border-right:5px solid transparent;
+	border-left:5px solid transparent;
+	position:absolute;
+	top:6px;
+	left:-11px;
+}
+#volunter .volun-form .form-mess{
+	margin-left:502px;
+}
+#volunter .volunB::before, .volunB::after{
+	content:"";
+	display:table;
+}
+.volunB::after{
+	clear:both;
+}
+
+#volunter .volun-form .form-mess input{
+	width:310px;
+	line-height:40px;
+	margin-right:17px;
+	margin-bottom:15px;
+}
+#volunter .volun-form .form-mess textarea{
+	width:637px;
+	height:120px;
+	margin-bottom:15px;
+}
+#volunter .volun-form .form-mess button{
+	width:637px;
+	height:40px;
+	border:none;
+	background:#ededef;
+	color:#000;
+	cursor:pointer;
+}
+#about-us{
+	background-color: #32363e;
+	color:#ffffff;
+	height: 358px;
+	text-align: center;
+	width: 1280px;
+	padding: 100px 384px 76px;
+	line-height: 30px;
+
+}
+#about-us span{
+	font-size:20px;
+}
+#about-us p{
+	wid th:509px;
+	font-size:12px;
+	line-height:18px;
+}
+#about-us button{
+	border:none;
+	background: gray;
+	width: 80px;
+	height:41px;
+	cursor:pointer;
+}
+#about-us input{
+	width:430px;
+	height:41px;
+	margin:0;
+	margin-top:27px;
+	
+}
+#about-us img{
+	width: 50px;
+	height: 50px;
+
+}
+footer{
+	width: 1280px;
+	height: 50px;
+	background: #2f2f38;
+	color: #fff;
+	padding: 30px 18px 0 100px ;
+
+}
+footer .toTop{
+	float: right;
+	cursor: pointer;
+}
