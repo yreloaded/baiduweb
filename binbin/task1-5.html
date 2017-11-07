@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+#main{
+	width: 1000px;
+	height: 500px;
+	border: 1px solid pink;
+	margin: 50px auto;
+	padding: 20px 0;
+	text-align: center;
+}
+button{
+	width: 100px;
+	height: 30px;
+	border-radius: 4px;
+}
+ul{
+	height: 100px;
+	display: flex;
+	align-items:flex-end;
+	justify-content:center;
+	margin: 100px auto 0;
+	border: 1px solid pink;
+}
+ul li{
+	width: 20px;
+	margin-left: 5px;
+	display: inline-block;
+	background: skyblue;
+}
+.current{
+	background: orange;
+}
+.finish{
+	background:lightseagreen;
+}
+</style>
+
+<script type="text/javascript">
+window.onload=function(){
+	var btns=document.querySelectorAll("button"),
+		lin=btns[0],
+		rin=btns[1],
+		lout=btns[2],
+		rout=btns[3],
+		sort=btns[4],
+		random=btns[5],
+		empty=btns[7];
+
+	var oUl=document.querySelector("ul");
+	init();
+	function init(){
+		addHandler(lin, "click", leftIn);
+        addHandler(rin, "click", rightIn);
+        addHandler(lout, "click", leftOut);
+        addHandler(rout, "click", rightOut);
+        addHandler(sort, "click", sortnum);
+        addHandler(random, "click", randomnum);
+        addHandler(empty, "click",emptynum);
+	}
+	
+	function emptynum(){
+		oUl.innerHTML="";
+	}
+	function randomnum(){
+		 emptynum();
+		for(var i=0;i<60;i++){
+			var li=document.createElement('li');
+
+			li.style.height=Math.floor(Math.random()*90+10)+'px';
+			oUl.appendChild(li); 
+
+		}
+	}
+
+	function createNum(){
+		var num=getId('input-num').value;
+		if(isNum(num)){
+			if(num<10||num>100){
+				alert('请输入10-100的数字');
+				return;
+			}
+		}else{
+			alert('请输入数字');
+		}
+
+		var li=document.createElement('li');
+		li.style.height=num+"px";
+
+		li.onclick=function(){
+			li.parentNode.removeChild(li);
+			alert("删除"+num);
+		};
+
+		return li;//忘记写这步，导致var li=createNum()调用时没有返回值。
+	}
+
+	function isNum(str){
+		if(str.length==0)return false;
+		for(var i=0;i<str.length;i++){
+			var n=str.charCodeAt(i);
+			if(n>57||n<48){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	function leftIn(){
+		var li=createNum();
+		if(oUl.children.length<60){
+			if(oUl.children[0]){
+				oUl.insertBefore(li,oUl.children[0])
+			}else{
+				oUl.appendChild(li);
+			}
+		}else{
+			alert('只能容纳60个元素');
+		}
+	}
+
+	function rightIn(){
+		var li=createNum();
+
+		if(oUl.children.length<60){
+			oUl.appendChild(li);
+		}else{
+			alert('只能容纳60个元素');
+		}
+	}
+
+	function leftOut(){
+		if(oUl.children.length>0){
+			var num=oUl.children[0].style.height;
+			oUl.removeChild(oUl.children[0]);
+			alert("删除的是"+parseInt(num));
+		}else{
+			alert('队列中没有元素');
+		}
+	}
+
+	function rightOut(){
+		if(oUl.children.length>0){
+			var num=oUl.lastChild.style.height;
+			oUl.removeChild(oUl.lastChild);
+			alert("删除的是"+parseInt(num));
+		}else{
+			alert('队列中没有元素');
+		}
+	}
+
+	/*function eleOut(ele){
+		if(oUl[ele]){
+			var num=oUl[ele].style.height;
+			oUl.removeChild(oUl[ele]);
+			alert("删除的是"+parseInt(num));
+		}else{
+			alert('队列中没有元素');
+		}
+	}*/
+
+	function sortnum(){
+		if(oUl.children[0]){
+			var resetbtn=btns[6],
+				lis=oUl.children,
+				i=0,j=0,timer,
+				templis=oUl.innerHTML;
+
+			resetbtn.onclick=function(){
+				clearInterval(timer);
+				oUl.innerHTML=templis;
+				deblockbtn();
+			}
+
+			blockbtn();
+
+			timer=setInterval(function(){
+				if(i<lis.length){
+					if(j<lis.length-i-1){
+						//var oldLi=lis[j];
+						//oldLi.className="";
+						
+						lis[j].className="";//可以原先没有，后来添加
+						
+						if(lis[j].offsetHeight>lis[j+1].offsetHeight){
+							var temp=lis[j].style.height;
+							lis[j].style.height=lis[j+1].style.height;
+							lis[j+1].style.height=temp;
+
+							
+						}//进行柱子高的交换
+						
+						j++;//进行i=0的每个值的比较
+						//oldLi=lis[j];
+						
+						lis[j].className="current";
+					}else{
+						i++;
+						//if(j-1>0){lis[j-1].className=""}
+						lis[lis.length-i].className="finish";
+						j=0;
+					}
+				}else{
+					clearInterval(timer);
+					deblockbtn();
+				}
+			},1000/lis.length)
+		}
+	}
+
+	function blockbtn() {
+        lin.disabled = "disabled";
+        rin.disabled = "disabled";
+        lout.disabled = "disabled";
+        rout.disabled = "disabled";
+        random.disabled = "disabled";
+        sort.disabled = "disabled";
+        empty.disabled = "disabled";
+    }
+    function deblockbtn() {
+        lin.disabled = "";
+        rin.disabled = "";
+        lout.disabled = "";
+        rout.disabled = "";
+        random.disabled = "";
+        sort.disabled = "";
+        empty.disabled = "";
+    }
+
+	function getId(id){
+		return document.getElementById(id);
+	}
+	function addHandler(element,type,handler) {
+	    if(element.addEventListener){
+	        element.addEventListener(type,handler);
+	    }else if(element.attachEvent){
+	        element.attachEvent("on"+type,handler);
+	    }else{
+	        element["on"+type] = handler;
+	    }
+	}
+
+	
+}
+</script>
+</head>
+
+<body>
+<div id="main">
+	<input type="text" id="input-num"/>
+	<button >左侧输入</button>
+    <button >右侧输入</button>
+    <button >左侧删除</button>
+    <button >右侧删除</button>
+    <button >排序</button>
+    <button >随机生成</button>
+    <button >重新排序</button>
+     <button >清空数组</button>
+
+    <ul>
+    </ul>
+</div>   
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+ul,li{
+	padding: 0;
+	margin: 0;
+}
+button{
+	width: 70px;
+	height: 30px;
+	border: 0;
+	border-radius: 5px;
+}
+ul{
+	width: 800px;
+	height: 400px;
+	border: 1px solid pink;
+}
+li{
+	width: 100px;
+	height: 50px;
+	margin: 5px;
+	background: orange;
+	display: inline-block;
+}
+</style>
+<script type="text/javascript">
+window.onload=function(){
+	var oUl=document.getElementById('list'),
+	data=[];
+
+	function splitArr(){
+		var num=document.getElementById('input-text').value;
+		var arr=num.split(/[^a-zA-Z0-9\u4e00-\u9fa5]/g);//[^]是排除的意思
+		arr=arr.filter(function(e){return e;});//去除空格？
+		return arr;//arr里包含的只是输入框里划分好的
+	}
+
+	function createLi(){
+		oUl.innerHTML="";
+		ali=oUl.getElementsByTagName('li');
+		for(var i=0;i<data.length;i++){
+			oUl.innerHTML+="<li>"+data[i]+"</li>";
+		}
+		for(var i=0;i<data.length;i++){
+			ali[i].onclick=function(){
+				alert("删除"+' '+this.innerHTML);
+				oUl.removeChild(this);
+			}
+		}
+	}
+
+	function leftIn(){
+		var arr=splitArr();
+		Array.prototype.unshift.apply(data,arr);
+		createLi(); 
+	}
+	function rightIn(){
+		var arr=splitArr();
+		Array.prototype.push.apply(data,arr);
+		createLi(); 
+	}
+	function leftOut(){
+		if(data.length>0){
+			var num=data.shift();//该方法返回的是要删除的数字
+			createLi();
+			alert("删除"+' '+num);
+		}else{
+			alert('没有要删除的内容');
+		}
+	}
+	function rightOut(){
+		if(data.length>0){
+			var num=data.pop();//该方法返回的是要删除的数字
+			createLi();
+			alert(num);
+		}else{
+			alert('没有要删除的内容');
+		}
+	}
+
+	function searchnum(){
+		var searchvalue=document.getElementsByTagName('input')[0].value;
+
+		for(var i=0;i<ali.length;i++){//将li里面的内容与匹配项比较，search方法是只要找到一个匹配的就返回
+			var num=ali[i].innerHTML;
+			if(num.search(searchvalue)!==-1){
+				ali[i].style.background="seagreen";
+			}else{
+				ali[i].style.background="orange";//此步加上后无需再消除原先的高亮
+			}
+		}
+	}
+
+	function init(){
+		var leI=document.getElementById('left-in');
+		var riI=document.getElementById('right-in');
+		var leO=document.getElementById('left-out');
+		var riO=document.getElementById('right-out');
+		var searchbtn=document.getElementById('search');
+		leI.onclick=leftIn;
+		riI.onclick=rightIn;
+		leO.onclick=leftOut;
+		riO.onclick=rightOut;
+		searchbtn.onclick=searchnum;
+		//document.getElementById('input-text').value="";
+	}
+	init();
+}
+</script>
+</head>
+<body>
+	<div>
+		<textarea id="input-text" cols="20" rows="10"></textarea>
+		<button id="left-in">左侧入</button>
+		<button id="right-in">右侧入</button>
+		<button id="left-out">左侧出</button>
+		<button id="right-out">右侧出</button>
+		<input type="text" placehoder="请输入要查询的值"/>
+		<button id="search">查询</button>
+		<ul id="list">
+		</ul>
+	</div>
+</body>
+</html>
