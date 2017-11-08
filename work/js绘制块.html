@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+#div1{
+	width: 500px;
+	height: 500px;
+	border: 2px solid pink;
+	position: absolute;
+	left: 500px;
+	top: 0px;
+}
+.box{
+	position: absolute;
+	border: 1px solid orange;
+}
+</style>
+<script type="text/javascript">
+window.onload=function(){
+	var oDiv=getId('div1');
+
+	oDiv.onmousedown=function(ev){
+		var ev=ev||event;
+
+		var paintDiv=document.createElement('div');
+		oDiv.appendChild(paintDiv);
+
+		var disX=ev.clientX;
+		var disY=ev.clientY;
+
+		document.onmousemove=function(ev){
+			var ev=ev||event;
+
+			paintDiv.style.left=disX-oDiv.offsetLeft+'px';
+			paintDiv.style.top=disY-oDiv.offsetTop+'px';
+
+			paintDiv.style.width=ev.clientX-disX+'px';
+			paintDiv.style.height=ev.clientY-disY+'px';
+			paintDiv.className="box";
+		}
+		document.onmouseup=function(){
+			document.onmousemove=null;
+		}
+		return false;
+
+	}
+
+	function getId(id){
+		return document.getElementById(id);
+	}
+}
+</script>
+</head>
+<body>
+	<div id='div1'></div>
+</body>
+</html>

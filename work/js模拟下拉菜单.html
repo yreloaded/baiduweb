@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+ul,li{
+	padding: 0;
+	margin: 0;
+}
+li{
+	list-style: none;
+}
+#contain{
+	width: 400px;
+	height: 400px;
+	border: 1px solid pink;
+	margin:0 auto;
+	
+}
+
+#font-list {
+	display: none;
+	width:170px;
+}
+.hover{
+	background: #dedede;
+}
+.choice{
+	background: pink;
+}
+</style>
+<script type="text/javascript">
+window.onload=function(){
+
+	var contain=getId('contain');
+	var oText=getId('text');
+	var font_list=getId('font-list');
+	var ali=font_list.getElementsByTagName('li');
+
+	var arr=[];
+
+	oText.onclick=function(ev){
+		var ev=ev||event;
+		ev.cancelBubble=true;//防止点击input框后，触发冒泡机制，导致父级将ul隐藏掉
+
+		font_list.style.display="block";
+	}
+
+	document.onclick=function(){
+		font_list.style.display="none";
+	}
+
+	active();//保证在li未点击前有鼠标移入移出的效果。
+
+	for(var i=0;i<ali.length;i++){
+		ali[i].onclick=function(ev){
+			var ev=ev||event;
+			ev.cancelBubble=true;//防止点击ali后，触发冒泡机制，导致父级将ul隐藏掉
+			
+			if(!this.onOff){//点击（未选中状态的）选项
+			//给每个ali上加开关，确保重复点击的时候，能够在选中和未选中之间切换,
+			//未选中时,先判断是多选还是单选，单选的话需要将之前点击过的li的样式去掉，只给当前加样式，多选就不需要考虑这些了，只需将选中的内容放到arr里即可，最后统一添加到text.value里即可
+				if(ev.ctrlKey==true){//多选时，按下ctrl键时，将点击的内容push到arr
+					arr.push(this.innerHTML);<!-- alert('选择多选'); -->
+				}else{//单选
+
+					for(var i=0;i<ali.length;i++){
+
+						ali[i].className="";
+
+						ali[i].onOff=false;
+					}//去除所有的样式
+
+					active();//去除掉所有样式后，给每个li加鼠标划入划出效果
+
+					arr.length=1;
+					arr[0]=this.innerHTML;
+					<!-- alert('选择单选') -->
+				}
+				//上面是对arr数组内容进行处理。下面是给点击的li加样式，
+
+				this.className="choice";
+				this.onmouseover=null;
+				this.onmouseout=null;//点击后的li不需要再由划入划出效果，不然就把点击效果消除掉了
+
+				this.onOff=true;<!-- alert("选择"); -->
+
+			}else{//去除掉已经点击过的选项。
+				//先将点击的li样式去除掉，
+				this.className="";
+				//删除该项后，给他们本身添加鼠标移入移出效果
+				this.onmouseover=function(){
+					this.className="hover";
+				}
+				this.onmouseout=function(){
+					this.className="";
+				}
+
+				this.onOff=false;<!-- alert('去除'); -->
+
+				if(ev.ctrlKey==true){//多项去除
+
+					for(var i=0;i<ali.length;i++){//将选中的该内容，判断出位于arr中位置，去除掉
+
+						if(arr[i]==this.innerHTML){
+							arr.splice(i,1);
+							break;
+						}
+					}
+					<!-- alert('去除多选'); -->
+
+				}else{//单项去除，即点击事件，为点击的li加样式
+
+					for(var i=0;i<ali.length;i++){
+						ali[i].className="";
+					}
+					this.className="choice";
+
+					this.onmouseover=null;
+					this.onmouseout=null;
+					arr.length=1;
+
+					arr[0]=this.innerHTML;
+					<!-- alert('去除单选'); -->
+				}
+			}
+			oText.value=arr.join(',')//最后，将arr数组中的内容，用，分隔填入inputli   
+		}
+	}
+	function active(){//添加滑入滑出效果
+		for(var i=0;i<ali.length;i++){
+			ali[i].onmouseover=function(){
+				this.className="hover";
+			}
+			ali[i].onmouseout=function(){
+				this.className="";
+			}
+			/*ali[i].onclick=function(){
+				this.className="choice";
+			}*/
+		}
+	}
+	function getId(id){
+		return document.getElementById(id);
+	}
+}
+</script>
+</head>
+<body>
+	<div id="contain">
+		<input id="text" type="text"/>
+		<ul id="font-list">
+			<li>微软雅黑</li>
+			<li>宋体</li>
+			<li>新罗马</li>
+			<li>楷体</li>
+		</ul>
+	</div>
+</body>
+</html>
