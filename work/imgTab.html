@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+ul,li{
+	padding: 0;
+	margin: 0;
+}
+li{
+	list-style: none;
+}
+#content{
+	width: 400px;
+	height: 400px;
+	position: relative;
+	margin:40px auto;
+
+	
+}
+#content>img{
+	width: 400px;
+	height: 300px;
+}
+#content li img{
+	width: 100px;
+	height: 80px;
+	position: absolute;
+	top:-100px;
+	left:-25px;
+}
+#content ul li{
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	background: gray;
+	float: left;
+	margin-left: 72px;
+	margin-top: 20px;
+	position:relative;
+}
+#content #tab{
+	opacity: 0.5;
+}
+#content #pre,#next{
+	position: absolute;
+	top: 140px;
+}
+#content #pre{
+	left: 0;
+}
+#content #next{
+	right: 0;
+}
+
+
+</style>
+<script type="text/javascript">
+window.onload=function(){
+	var content=getId('content');
+	var oimg=document.getElementsByTagName('img')[0];
+	var oUl=document.getElementsByTagName('ul')[0];
+	var pre=getId('pre');
+	var next=getId('next');
+	var litpic=getId('litpic');
+	var arr=['img/001.jpg','img/002.jpg','img/003.jpg','img/004.jpg'];
+	var num=0;
+	var timer=null;
+	
+	for(var i=0;i<arr.length;i++){
+		oUl.innerHTML+='<li></li>';
+	}
+	
+	for(var i=0;i<arr.length;i++){
+		var aLi=oUl.getElementsByTagName('li');
+		
+		aLi[i].index=i;
+		aLi[i].onclick=function(){
+			fnTab(this.index);
+			num=this.index;
+		}
+		
+		aLi[i].onmouseover=function(){
+			this.innerHTML='<img></img>';//若在一开始添加li标签时加入img图标，那么在页面开始就会有img的白边出现，因为你加入了空的img标签
+			this.getElementsByTagName("img")[0].src=arr[this.index];
+			this.getElementsByTagName("img")[0].style.display="block";
+			
+		}
+		aLi[i].onmouseout=function(){
+			this.getElementsByTagName("img")[0].style.display="none";		
+		}
+	}
+	fnTab(0);
+	pre.onclick=function(){
+		if(num===0)num=arr.length;
+		num--;
+		fnTab(num);
+	}
+	next.onclick=function(){
+		num++;
+		if(num===arr.length)num=0;
+		fnTab(num);
+	}
+	autoPlay();
+	content.onmouseover=function(){
+		clearInterval(timer);
+	}
+	content.onmouseout=autoPlay;
+	//设置图片、li点点同步
+	function fnTab(index){
+		oimg.src=arr[index];
+		for(var i=0;i<arr.length;i++){aLi[i].style.background=""}
+		aLi[index].style.background="orange";
+	}
+	function autoPlay(){
+		clearInterval(timer);
+		timer=setInterval(function(){
+			num++;
+			num%=arr.length;
+			fnTab(num);
+		},1000)
+	}
+	function getId(id){
+		return document.getElementById(id) 
+	}
+}
+</script>
+</head>
+<body>
+	<div id="content">
+		<img/>
+		<ul></ul>
+		<div id="tab">
+			<div id="pre"><img src="img/icon2.png"></div>
+			<div id="next"><img src="img/icon1.png"></div>
+		</div>
+	</div>
+</body>
+</html>
